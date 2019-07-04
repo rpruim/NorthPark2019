@@ -1,0 +1,124 @@
+---
+title: "R Workshop"
+author: "North Park University"
+date: "July 16-18, 2019"
+output: 
+  html_document: 
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: true
+      smooth_scroll: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<style>
+h3 {
+  font-size: 110%;
+  color: #993333;
+}
+
+h4 {
+  font-size: 105%;
+}
+</style>
+
+
+
+## Welcome
+
+* [Workshop Participants](https://docs.google.com/document/d/1pi88Tqayp1A4B8ZEyA-0d6omuUrFsUy7q_DKAoGO-ss/edit?usp=sharing)
+
+    Participants, please add an entry for yourself.
+
+* [**Questions/Comments/Answers/Responses**](https://docs.google.com/document/d/1PKc8DBh3oIxGid43CvhFO0vCqaS9fEep_prD7HxXN9Y/edit?usp=sharing)
+
+    Use this google doc to comment or ask questions.  Feel free to respond to other people's questions.
+    
+## RStudio set-up
+
+To take full advantage of the workshop, you will want to have
+working, up-to-date versions of [R](https://www.r-project.org/) and
+[RStudio](https://www.rstudio.com/). There are at least three
+options for achieving this:
+    
+* **Install them locally on your laptop.** Installation is
+straightforward. Follow the links above to find download 
+and installation instructions for your platform.
+   
+* **Use an RStudio server account** and work in a browser. If you don't
+already have a server account, I can provide one during the workshop, or you
+can use the third option.
+    
+* **Use [rstudio.cloud](https://rstudio.cloud).** You can set
+up a free account.
+    
+If your R set-up is rather old, I recommend updating R, RStudio, and your 
+R packages.
+
+## Less Volume, More Creativity
+
+### A guiding principle
+
+* [Slides]()
+
+### Example: An introduction to R/RStudio/ggformula
+
+* [Tutorial]()
+* [Graphics Gallery](https://docs.google.com/presentation/d/1nl3XHQGbYPeG_mf4aBBGaEFDKGerABc3AvuZNA7PsnM/edit?usp=sharing)
+
+## R Markdown -- Creating documents in RStudio
+
+### Variations on the theme
+
+* [learnr tutorials]() -- for interactive documents with live R code blocks 
+* [presentations]() -- HTML, PDF, or even PowerPoint slides
+* [bookdown]() for "books"
+* [blogdown]() for websites
+
+## Data
+
+### Tidy data
+
+* [Tidy Data Slides]()
+
+### Getting data into R
+
+R and various packages provide tools for importing data from many different
+types of file (csv, Excel, SPSS, SAS, google spreadsheets, etc.)
+
+## Data Wrangling with the tidyverse
+
+### 5.5 Data verbs to get you started
+
+### Combining data from multiple sources -- joins
+
+### Pivoting -- pivot tables the R way
+
+### Cleaning up other messes
+
+* [TB case study]()
+    * data in variables -- pivoting +  `tidyr::separate()` 
+* dates -- lubridate to the rescue
+* extracting numbers -- `readr::parse_number()` to the rescue
+
+## Writing functions in R
+
+## Using Github with RStudio
+
+## Creating an R package
+
+## Maps
+
+* easy maps with leaflet 
+
+## Modeling
+
+* lm(), glm(), lmer(), etc.
+* machine learning in R 
+* Bayesian inference in R 
+* ???
+
