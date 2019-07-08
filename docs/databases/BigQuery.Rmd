@@ -1,0 +1,172 @@
+---
+title: 'dbplyr: dplyr for databases'
+author: "R Pruim"
+date: "July 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  cache = TRUE
+)
+
+library(DBI)
+library(bigrquery)
+library(dplyr)
+library(dbplyr)
+library(gargle)   # handles google authentication stuff
+library(ggformula)
+theme_set(theme_bw())
+library(printr)
+
+
+options(gargle_oauth_email = "rpruim@gmail.com")
+# api_key <- "AIzaSyCOXxlss1kqxUpTwy7UQlbazEx2khKM8IE"
+
+bq_auth(
+  path = "~/.R/gargle/dbplyr-examples-33a3d8169744.json"
+)
+```
+
+Using online databases is a 3 step process:
+
+1. Establish a connection
+
+2. Choose a table or tables
+
+3. Forget your data are in an SQL data base and use `dplyr` functions to 
+interrogate the data.
+## Step 1: Establish a connection
+
+When working with databases, the data are stored on a server (typically a remote
+machine, but it could actually be on the same machine you are using for
+analysis). In order to access the data, you need to establish a **connection**
+to that server.
+
+Here we demonstrate using public data from google's bigquery service.  You will need to
+activate an account, create a project, and enable billing for that project. (You won't
+actualy be charged until you exceed the useage limits given for a free acount *and* 
+agree to accept charges, so no worries about getting charged without being aware.)
+Find out more at <https://github.com/r-dbi/bigrquery>
+
+```{r bigquery-startup}
+library(DBI) 
+library(bigrquery)
+library(dplyr)
+
+con <- dbConnect(
+  bigrquery::bigquery(),
+  project = "publicdata",
+  dataset = "samples", 
+  billing = "dbplyr-examples" # set this to the name of a project that has billing enabled
+)
+con 
+```
+
+Establishing a connection to other servers varies a bit from server to server, but generally
+you need to
+
+* replace `bigrquery::bigquery()` with the appropriate function for the type of server you 
+are using,
+* provide authentication information (username and password).
+
+Find out more about connecting to other types of SQL servers in
+the [dbplyr vignette](https://cran.r-project.org/web/packages/dbplyr/vignettes/dbplyr.html).
+
+### Non-interactive use
+
+For non-interactive use (like knitting this document), authorization must be achieved without
+user input via a web form.
+This can be acheived by creating an OAuth service account token. You create this online
+(see the 
+[gargle API credentials vignette](https://gargle.r-lib.org/articles/get-api-credentials.html)
+for details), store the resulting JSON some where on your computer and use something like
+this to authenticate:
+
+```{r authentication, eval = FALSE}
+# change patht to the location where you saved the token you downloaded from Google
+bq_auth(path = "~/.R/gargle/my-bq-token.json")
+```
+
+## Step 2: Choose a table or tables
+
+Databases generally consist of multiple **tables** of rectangular data.
+Let's see what Google provides in their freely available example data sets
+and choose one to work with.
+
+```{r list-tables}
+# list the available data tables 
+dbListTables(con)   # you may be prompted to grant R access to your data
+
+# choose a table to work with
+Natality <- tbl(con, "natality")
+Natality %>% head()
+```
+
+## Step 3: Use dplyr just (about) as you would for a data frame
+
+Sort version: 
+`dplyr` converts your R code into SQL commands that are exectuted on the server.[^sql]
+
+[^sql]: You can find out exactly what SQL is generated using `show_query()` or 
+`explain()`.
+
+Longer version:
+
+* SQL queries to large data sets can be slow, so `dplyr` is very lazy and only grabs data
+when it needs to, and only a little bit (unless you ask for all of it with `collect()`).
+* some things that you can do in R can't be readily translated into the various flavors of 
+SQL. So you might see some warnings if you try to do something `dplyr` can't do what you want.
+Two important examples:
+    * You can't use `nrow()` or `tail()`.  Each of these would be very expensive because
+    they would require you to first compute the entire query.
+    * `head()` does work and returns the first few rows of what the full query
+    would have returned. (That's also basically what happens unless you use
+    `collect()` to get all of the data.) This allows you to test your query a
+    bit before commiting to a potentially expensive operation that doesn't do
+    what you want.
+    
+```{r taking-a-look}
+# Natality %>% head() returns a connection, not the actual data 
+Natality %>% head() %>% class()
+# use collect to grab the data into local data frame
+Natality %>% head() %>% collect() %>% class()
+# from there we can query all the names in the data frame to see what variables there are
+Natality %>% head() %>% collect() %>% names()
+```
+
+Now lets calculate some summary information on the whole data set.
+
+```{r natality-summary}
+Natality_Summary <-
+  Natality %>%
+  group_by(year, child_race, is_male) %>%
+  summarise(
+    n = n(),
+    mean_wt = mean(weight_pounds, na.rm = TRUE)
+  ) %>% 
+  arrange(year, child_race, is_male) %>% 
+  collect() %>%                                # fetch all of the data
+  mutate(sex = ifelse(is_male, "M", "F"))
+head(Natality_Summary)
+```    
+
+```{r natality-plot}
+library(ggformula)   
+Natality_Summary %>%
+  gf_line(mean_wt ~ year | is_male ~ ., color = ~ factor(child_race))
+Natality_Summary %>% filter(n > 50000) %>%
+  gf_line(n ~ year | is_male ~ ., color = ~ factor(child_race))
+```
+
+## Where's the code book?
+
+You might be wondering some things about this data, like
+
+* What is race 9?
+* What happened to races 1 and 2 after 1994?
+* What children are included?
+
+You can find out at <https://cloud.google.com/bigquery/public-data/>.
+
