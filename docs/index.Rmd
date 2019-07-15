@@ -92,7 +92,7 @@ R packages.
 
 ### Tidy data
 
-* [Tidy Data Slides]()
+* [Tidy Data Slides](tidy-data/tidy-data-slides.html)
 
 ### Getting data into R
 
