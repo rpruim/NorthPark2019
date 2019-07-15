@@ -70,6 +70,10 @@ R packages.
 * [Tutorial]()
 * [Graphics Gallery](https://docs.google.com/presentation/d/1nl3XHQGbYPeG_mf4aBBGaEFDKGerABc3AvuZNA7PsnM/edit?usp=sharing)
 
+### More R Examples
+
+* [Examples and Tutorials @ Calvin](http://rsconnect.calvin.edu:3939/connect/#/apps/94/access) [Mostly assembled by Stacy DeRuiter for Intro Biostats]
+
 ## R Markdown -- Creating documents in RStudio
 
 ### Variations on the theme
@@ -110,6 +114,8 @@ types of file (csv, Excel, SPSS, SAS, google spreadsheets, etc.)
 ## Using Github with RStudio
 
 ## Creating an R package
+
+* [Making an R package with RStudio and GitHub](http://rpruim.github.io/talks/R-Packages/R-packages-slides.html)
 
 ## Maps
 
