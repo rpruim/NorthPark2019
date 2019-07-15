@@ -76,6 +76,11 @@ R packages.
 
 ## R Markdown -- Creating documents in RStudio
 
+### Getting Started with R Markdown 
+
+* [Slides](rmarkdown/rmarkdown-slides.html)
+* [Rmd](rmarkdown/rmarkdown-slides.Rmd)
+
 ### Variations on the theme
 
 * [learnr tutorials]() -- for interactive documents with live R code blocks 
