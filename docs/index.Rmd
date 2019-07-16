@@ -63,11 +63,11 @@ R packages.
 
 ### A guiding principle
 
-* [Slides]()
+* [Slides](less-volume/less-volume-slides.html)
 
 ### Example: An introduction to R/RStudio/ggformula
 
-* [Tutorial]()
+* [Tutorial](http://rsconnect.calvin.edu:3939/less-volume-np2019/)
 * [Graphics Gallery](https://docs.google.com/presentation/d/1nl3XHQGbYPeG_mf4aBBGaEFDKGerABc3AvuZNA7PsnM/edit?usp=sharing)
 
 ### More R Examples
@@ -101,14 +101,18 @@ types of file (csv, Excel, SPSS, SAS, google spreadsheets, etc.)
 
 ## Data Wrangling with the tidyverse
 
-### 5.5 Data verbs to get you started
+### 5&frac12; Data verbs to get you started
 
-### Combining data from multiple sources -- joins
+* [Wrangling Tutorial]()
 
-### Pivoting -- pivot tables the R way
+### Going Beyond the Basics
 
-### Cleaning up other messes
+* [TB Case Study](https://rpruim.shinyapps.io/tidydata-TB-tutorial/)
 
+    * Combining data from multiple sources -- joins
+    * Reshaping: long vs. wide
+    * Dealing with "data in variables"
+    * Cleaning up other messes 
 * [TB case study]()
     * data in variables -- pivoting +  `tidyr::separate()` 
 * dates -- lubridate to the rescue
