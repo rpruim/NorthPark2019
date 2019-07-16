@@ -266,18 +266,18 @@ Formulas in R always involve the tilde character, which is easy to overlook.
 It looks like this:  
 
 ```{r echo = FALSE, fig.align = "center", out.width = "50%"}
-knitr::include_graphics("../../images/tilde.png")
+knitr::include_graphics("images/tilde.png")
 ```
 
-The position of ![](../../images/tilde-small.png) on the keyboard varies from brand to brand. On Apple keyboards, it's here.
+The position of ![](images/tilde-small.png) on the keyboard varies from brand to brand. On Apple keyboards, it's here.
 
 ```{r echo = FALSE, fig.align = "center", out.width = "40%"}
-knitr::include_graphics("../../images/keyboard-tilde.png")
+knitr::include_graphics("images/keyboard-tilde.png")
 ```
 
 <!-- #### Exercise -->
 
-<!-- Find the ![](../../images/tilde-small.png) on your keyboard and type `births ~ date` in  -->
+<!-- Find the ![](images/tilde-small.png) on your keyboard and type `births ~ date` in  -->
 <!-- the code block.  That's the formula we need for our plot. -->
 
 <!-- ```{r type-tilde, exercise=TRUE, exercise.lines = 2} -->
