@@ -130,8 +130,9 @@ types of file (csv, Excel, SPSS, SAS, google spreadsheets, etc.)
 
 ## Writing functions in R
 
-* [Slides](writing-functions/writing-functions-slides.html)
+* [Slides](writing-functions/tom-dick-harry-slides.html)
 * [Tutorial](http://rsconnect.calvin.edu:3939/writing-functions-2019/)
+
 ## Using Github with RStudio
 
 ## Creating an R package
