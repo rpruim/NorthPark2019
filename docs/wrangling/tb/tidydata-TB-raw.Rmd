@@ -1,0 +1,7 @@
+
+
+```{r, results = 'asis'}
+stuff <- readLines("tidydata-TB-tutorial.Rmd")
+cat(paste(stuff, collapse = "\n", sep = "\n"))
+```
+

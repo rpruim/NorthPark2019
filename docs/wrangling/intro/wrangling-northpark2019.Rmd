@@ -9,6 +9,41 @@ output:
 runtime: shiny_prerendered
 ---
 
+<style type="text/css">
+
+@media screen and (max-width: 1800px) {
+  .topics {
+    width: 99%;
+  }
+
+  .topics .tutorialTitle {
+    display: block;
+    cursor: pointer;
+  }
+
+  .topicsContainer {
+    width: 1%;
+    min-width: 1px;
+    margin-right: 0;
+  }
+
+  .topicsList {
+    padding: 0px 10px 20px 1%;
+    background-color: rgba(255, 255, 255, 0.98);
+
+    box-shadow: 0 5px 25px 0px rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: 0 5px 25px 0px rgba(0, 0, 0, 0.15);
+  }
+
+  .topicsList.hideFloating {
+    display: none;
+  }
+
+  .paneCloser {
+    display: inline-block;
+  }
+}
+</style>
 
 ```{r setup, include = FALSE}
 library(learnr)
@@ -78,10 +113,10 @@ We will rename some data sets so that in this tutorial data sets
 are capitalized and variables (mostly) are not.
 
 ```{r}
-require(mosaic)        # loads part of tidyverse and some data sets
-require(ggplot2movies) # contains a movies dataset
-require(babynames)     # number of kids with each name for over 100 yrs
-require(nycflights13)  # all flights in/out of NYC in 2013
+library(mosaic)        # loads part of tidyverse and some data sets
+library(ggplot2movies) # contains a movies dataset
+library(babynames)     # number of kids with each name for over 100 yrs
+library(nycflights13)  # all flights in/out of NYC in 2013
 
 
 # rename so data sets are capitalized and variables (mostly) are not.
@@ -124,8 +159,8 @@ As grandma says: tidy and clean are two different things
  
 ### Glyph Ready Data
 
-Many plotting libraries (including `ggformula` and `ggplot2`) require or work best with
-"glyph ready" data:
+Many plotting libraries (including `ggformula` and `ggplot2`) require or work
+best with "glyph ready" data:
 
   * information for each glyph (a mark on the "page") is in a single row.
   * attributes of each glyph are determined by values of variables in that row.
