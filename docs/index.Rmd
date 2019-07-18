@@ -59,6 +59,10 @@ up a free account.
 If your R set-up is rather old, I recommend updating R, RStudio, and your 
 R packages.
 
+## Resources
+
+* [Isolated Statisticians](https://ww2.amstat.org/committees/isostat/isostat.html) -- Join the email list
+
 ## Less Volume, More Creativity
 
 ### A guiding principle
@@ -132,6 +136,10 @@ types of file (csv, Excel, SPSS, SAS, google spreadsheets, etc.)
 
 * [Slides](writing-functions/tom-dick-harry-slides.html)
 * [Tutorial](http://rsconnect.calvin.edu:3939/writing-functions-2019/)
+
+## Shiny Apps
+
+* [Confidence Interval](http://shiny.calvin.edu/rpruim/CIs/)
 
 ## Using Github with RStudio
 
