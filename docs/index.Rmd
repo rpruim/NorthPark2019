@@ -79,6 +79,9 @@ R packages.
 ### More R Examples
 
 * [Examples and Tutorials @ Calvin](http://rsconnect.calvin.edu:3939/connect/#/apps/94/access) [Mostly assembled by Stacy DeRuiter for Intro Biostats]
+* [mosaic package website](https://projectmosaic.github.io/mosaic/) -- be sure to look in "Articles"
+* [ggformala package website](https://projectmosaic.github.io/ggformula/) 
+
 
 ## R Markdown -- Creating documents in RStudio
 
@@ -134,7 +137,7 @@ types of file (csv, Excel, SPSS, SAS, google spreadsheets, etc.)
     
 * Guns Example
     * [Guns example](Guns.html)
-    * data at <data/Guns.Rds>
+    * data [here](data/Guns.Rds)
 
 ## Writing functions in R
 
