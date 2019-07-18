@@ -1,0 +1,140 @@
+---
+title: "Gun Violence"
+author: "R Pruim"
+date: "7/17/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(tidyr)
+library(lubridate)
+```
+
+```{r}
+Guns <- readRDS("../data/Guns.Rds")
+names(Guns)
+```
+
+
+
+```{r}
+Guns_age <-
+  Guns %>% head(100) %>%
+  select(incident_id, participant_age) %>%
+  separate_rows(
+    participant_age, 
+    sep = "\\|\\|") %>%
+  separate(
+    participant_age,
+    into = c("participant_id", "age"),
+    sep  = "::"
+  )
+```
+
+```{r, include = FALSE}
+library(rlang)
+separate_participants0 <-
+  function(data, col) {
+    col <- enquo(col)
+    col_parts <- 
+      stringr::str_split(quo_name(col), pattern = "_", n = 2)[[1]]
+    col_name <- col_parts[1]
+    col_value <- col_parts[2]
+    
+    data %>%
+      select(incident_id, !!col) %>%
+      separate_rows(
+        !!col, 
+        sep = "\\|\\|") %>%
+      separate(
+        !!col,
+        into = c(col_name, col_value),
+        sep  = "::"
+      )
+  }
+```
+
+```{r}
+library(rlang)
+separate_participants <-
+  function(data, col_name, convert = FALSE) {
+    col <- quo(!!sym(col_name))
+    col_parts <- 
+      stringr::str_split(col_name, pattern = "_", n = 2)[[1]]
+    col_name <- col_parts[1]
+    col_value <- col_parts[2]
+    
+    data %>%
+      select(incident_id, !!col) %>%
+      separate_rows(
+        !!col, 
+        sep = "\\|\\|") %>%
+      separate(
+        !!col,
+        into = c(col_name, col_value),
+        sep  = "::",
+        convert = convert
+      )
+  }
+```
+
+```{r}
+participant_cols <- 
+  grep("participant", names(Guns), value = TRUE) %>%
+  rev()  # reverse order because first column doesn't always have all
+         # participants, but last seems to
+participant_cols
+
+Guns %>% head(3) %>%
+  mutate(
+    num_age = 5
+      # nrow(stringr::str_locate_all(pattern = "\\|\\|", participant_age))
+    ) %>% 
+  select(incident_id, num_age)
+
+GunsParticipants <- 
+  Guns %>% head(3) %>%
+  mutate(
+    num_age =  1 +
+      nrow(stringr::str_locate_all(pattern = "\\|\\|", participant_age)[[1]]),
+    num_age_group = 1 +
+      nrow(stringr::str_locate_all(pattern = "\\|\\|", participant_age_group)[[1]]),
+    num_gender = 1 +
+      nrow(stringr::str_locate_all(pattern = "\\|\\|", participant_gender)[[1]]),
+    num_name = 1 +
+      nrow(stringr::str_locate_all(pattern = "\\|\\|", participant_name)[[1]]),
+    num_relationship = 1 +
+      nrow(stringr::str_locate_all(pattern = "\\|\\|", participant_relationship)[[1]]),
+    num_status = 1 +
+      nrow(stringr::str_locate_all(pattern = "\\|\\|", participant_status)[[1]]),
+    num_type = 1 +
+      nrow(stringr::str_locate_all(pattern = "\\|\\|", participant_type)[[1]]),
+    num_participants = 1 +
+      max(num_age, num_age_group, num_gender, num_name, num_relationship, num_status, num_type)
+  ) %>% 
+  select(incident_id, matches("num_"))
+           
+
+for (col_name in rev(participant_cols)) {
+  GunsParticipants <- 
+    GunsParticipants %>% 
+    left_join(
+      Guns %>% head(3) %>% 
+        separate_participants(col_name, convert = TRUE)
+    )
+}
+```
+
+```{r}
+# some sanity checks
+GunsParticipants %>%
+  select(incident_id, participant_type, participant, type) %>%
+  arrange(incident_id, participant)
+
+GunsParticipants %>%
+  select(incident_id, participant_gender, participant, gender) %>%
+  arrange(incident_id, participant)
+
+```

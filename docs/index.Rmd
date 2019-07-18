@@ -131,6 +131,10 @@ types of file (csv, Excel, SPSS, SAS, google spreadsheets, etc.)
 * Other useful things
     * dates -- [lubridate](https://lubridate.tidyverse.org/) to the rescue
     * extracting numbers -- `readr::parse_number()` and friends to the rescue
+    
+* Guns Example
+    * [Guns example](Guns.html)
+    * data at <data/Guns.Rds>
 
 ## Writing functions in R
 
